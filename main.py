@@ -1,3 +1,38 @@
-import datetime
+import requests
+import pandas as pd
+import io
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import os
+import json
 
-print("程式成功執行：", datetime.datetime.now())
+# 1️⃣ 抓網頁表格
+url = "https://stock.wespai.com/p/75713"
+headers = {"User-Agent": "Mozilla/5.0"}
+response = requests.get(url, headers=headers, timeout=15)
+response.raise_for_status()
+tables = pd.read_html(io.StringIO(response.text))
+df = tables[0]
+
+print("抓到表格前五筆：")
+print(df.head())
+
+# 2️⃣ 登入 Google Sheet
+SCOPE = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive"]
+creds_dict = json.loads(os.environ['GOOGLE_SHEETS_JSON'])
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, SCOPE)
+client = gspread.authorize(creds)
+
+SPREADSHEET_NAME = "Getrawdata"
+WORKSHEET_NAME = "Rawdata"
+sheet = client.open(SPREADSHEET_NAME).worksheet(WORKSHEET_NAME)
+
+# 3️⃣ 清空舊資料
+sheet.clear()
+
+# 4️⃣ 寫入表格
+sheet.insert_row(list(df.columns), 1)
+for i, row in enumerate(df.values.tolist()):
+    sheet.insert_row(row, i+2)
+
+print("資料已成功寫入 Google Sheet！")
