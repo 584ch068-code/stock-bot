@@ -2,26 +2,26 @@ name: Run Python Script
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # 每10分鐘執行一次
-  workflow_dispatch:         # 手動執行
+    - cron: "*/10 * * * *"   # 每10分鐘執行
+  workflow_dispatch:
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 下載程式碼
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4   # ✅ 更新版本
 
-      - name: 安裝 Python
-        uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5   # ✅ 更新版本
         with:
           python-version: "3.11"
 
-      - name: 安裝套件
+      - name: Install packages
         run: |
           pip install requests pandas
 
-      - name: 執行程式
+      - name: Run script
         run: |
           python main.py
