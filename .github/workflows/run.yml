@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests pandas gspread oauth2client lxml
+          pip install requests pandas gspread oauth2client lxml html5lib
 
       - name: Run Python script
         run: python main.py
