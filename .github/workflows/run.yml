@@ -17,15 +17,14 @@ jobs:
         with:
           python-version: "3.11"
 
-- name: Install dependencies
-  run: |
-    python -m pip install --upgrade pip
-    python -m pip install requests pandas gspread oauth2client lxml html5lib
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests pandas gspread oauth2client lxml html5lib
 
-- name: Check installed packages
-  run: |
-    pip list
-
+      - name: Check installed packages
+        run: |
+          pip list
       - name: Run Python script
         run: python main.py
         env:
