@@ -2,19 +2,22 @@ name: Run Python Script
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # 每10分鐘執行
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
 
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # ✅ 關鍵這行
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v4   # ✅ 更新版本
+        uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v5   # ✅ 更新版本
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
