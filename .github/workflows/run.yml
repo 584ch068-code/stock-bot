@@ -2,7 +2,7 @@ name: Stock Auto Fetch & Upload
 
 on:
   schedule:
-    - cron: "30 5 * * *"   # 每天 05:30 UTC = 13:30 台灣時間
+    - cron: "0 9 * * *"   # 每天 09:00 UTC = 17:00 台灣時間
   workflow_dispatch:       # 可以手動觸發
 
 jobs:
