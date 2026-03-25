@@ -12,7 +12,7 @@ import datetime
 # -----------------------------
 now = datetime.datetime.utcnow() + datetime.timedelta(hours=8)
 
-if now.hour != 20:
+if now.hour != 20:30
     print(f"現在時間 {now}，非執行時間，跳過")
     exit()
 
