@@ -2,7 +2,7 @@ name: Stock Auto Fetch & Upload
 
 on:
   schedule:
-    - cron: "0 * * * *"   # 每小時執行一次（保險）
+    - cron: "*/5 * * * *"   # 每小時執行一次（保險）
   workflow_dispatch:
 
 jobs:
