@@ -2,8 +2,8 @@ name: Stock Auto Fetch & Upload
 
 on:
   schedule:
-    - cron: "*/5 * * * *"   # 每天 09:00 UTC = 17:00 台灣時間
-  workflow_dispatch:       # 可以手動觸發
+    - cron: "0 * * * *"   # 每小時執行一次（保險）
+  workflow_dispatch:
 
 jobs:
   fetch-and-upload:
@@ -22,9 +22,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install requests pandas gspread oauth2client lxml html5lib
 
-      - name: Check installed packages
-        run: |
-          pip list
       - name: Run Python script
         run: python main.py
         env:
